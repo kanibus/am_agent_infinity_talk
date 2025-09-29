@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Promo Video Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app shell">
+      <header class="auth-shell" id="auth-shell">
+        <div class="auth-card">
+          <h1>Welcome to PPVG</h1>
+          <p class="subtitle">
+            Generate polished promo videos with AI-powered scripts and avatar lip-sync.
+          </p>
+          <form id="auth-form" class="auth-form" autocomplete="on">
+            <div class="field">
+              <label for="email">Work Email</label>
+              <input type="email" id="email" required placeholder="alex@company.com" />
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input type="text" id="company" required placeholder="Acme Co." />
+            </div>
+            <button type="submit" class="btn primary">Continue</button>
+            <div class="oauth-group">
+              <button type="button" class="btn secondary" data-provider="google">Continue with Google</button>
+              <button type="button" class="btn secondary" data-provider="apple">Continue with Apple</button>
+            </div>
+            <p class="helper">
+              By continuing you agree to our
+              <a href="#" aria-label="Terms">Terms</a>
+              and
+              <a href="#" aria-label="Privacy">Privacy Policy</a>.
+            </p>
+          </form>
+        </div>
+      </header>
+
+      <main class="main" id="main" hidden>
+        <nav class="nav">
+          <button class="tab-button active" data-tab="home">Home</button>
+          <button class="tab-button" data-tab="create">Create</button>
+          <button class="tab-button" data-tab="history">History</button>
+          <button class="tab-button" data-tab="settings">Settings</button>
+        </nav>
+
+        <section id="home" class="view" aria-labelledby="home">
+          <div class="dashboard">
+            <div class="dashboard-card highlight">
+              <h2>Welcome back, <span id="user-name">Creator</span> 👋</h2>
+              <p>Ready to build your next product story?</p>
+              <button class="btn cta" data-tab-target="create">Create new video</button>
+            </div>
+            <div class="metrics-grid">
+              <div class="metric">
+                <span class="metric-label">Videos generated</span>
+                <span class="metric-value" id="metric-videos">0</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Scripts approved</span>
+                <span class="metric-value" id="metric-scripts">0</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Avg. generation time</span>
+                <span class="metric-value" id="metric-time">—</span>
+              </div>
+            </div>
+            <div class="recent-list">
+              <h3>Recent videos</h3>
+              <ul id="recent-videos" class="recent-items empty">
+                <li>No videos yet. Start by creating one!</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="create" class="view" hidden>
+          <div class="stepper">
+            <div class="step" data-step="1">Input</div>
+            <div class="step" data-step="2">Script</div>
+            <div class="step" data-step="3">Approve</div>
+            <div class="step" data-step="4">Generate</div>
+            <div class="step" data-step="5">Preview</div>
+          </div>
+
+          <div class="panel" data-panel="1">
+            <h2>Product brief</h2>
+            <p class="panel-help">Tell us about your product so the AI can craft a compelling script.</p>
+            <form id="product-form" class="form">
+              <div class="field">
+                <label for="product-name">Product name</label>
+                <input id="product-name" name="productName" required placeholder="Infinity Talk Studio" />
+              </div>
+              <div class="field">
+                <label for="product-description">Description</label>
+                <textarea id="product-description" name="description" rows="3" required placeholder="Describe what makes your product unique."></textarea>
+              </div>
+              <div class="field">
+                <label for="product-features">Key features</label>
+                <textarea id="product-features" name="features" rows="2" required placeholder="Bullet your top features."></textarea>
+              </div>
+              <div class="field">
+                <label for="product-audience">Target audience</label>
+                <input id="product-audience" name="audience" required placeholder="e.g., Social media managers" />
+              </div>
+              <div class="field">
+                <label for="product-tone">Desired tone</label>
+                <select id="product-tone" name="tone">
+                  <option value="enthusiastic">Enthusiastic</option>
+                  <option value="professional">Professional</option>
+                  <option value="friendly">Friendly</option>
+                  <option value="inspirational">Inspirational</option>
+                </select>
+              </div>
+              <div class="actions">
+                <button type="submit" class="btn primary">Generate script</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="panel" data-panel="2" hidden>
+            <h2>Script generation</h2>
+            <p class="panel-help">We craft a concise script tailored to your brand voice.</p>
+            <div class="loading" id="script-loading" hidden>
+              <div class="spinner" role="status" aria-live="polite"></div>
+              <p>Generating script with brand guidelines…</p>
+            </div>
+            <article class="script-output" id="script-output"></article>
+            <div class="actions">
+              <button class="btn secondary" id="back-to-input">Back</button>
+              <button class="btn primary" id="approve-script" disabled>Approve script</button>
+              <button class="btn secondary" id="regenerate-script" disabled>Regenerate</button>
+            </div>
+          </div>
+
+          <div class="panel" data-panel="3" hidden>
+            <h2>Polish your script</h2>
+            <textarea id="script-editor" rows="8"></textarea>
+            <div class="actions">
+              <button class="btn secondary" id="edit-back">Back</button>
+              <button class="btn primary" id="finalize-script">Finalize &amp; generate video</button>
+            </div>
+          </div>
+
+          <div class="panel" data-panel="4" hidden>
+            <h2>Select avatar</h2>
+            <p class="panel-help">Choose an avatar to deliver your message using Infinite Talk lip-sync.</p>
+            <div class="avatar-grid" role="list" id="avatar-grid">
+              <button class="avatar-card selected" data-avatar="nova">
+                <img src="fb7dcbdb-6aae-4d19-887c-5525306e2f01.webp" alt="Avatar Nova" />
+                <span>Nova (Default)</span>
+              </button>
+              <button class="avatar-card" data-avatar="jade">
+                <img src="fb7dcbdb-6aae-4d19-887c-5525306e2f01.webp" alt="Avatar Jade" />
+                <span>Jade</span>
+              </button>
+              <button class="avatar-card" data-avatar="kai">
+                <img src="fb7dcbdb-6aae-4d19-887c-5525306e2f01.webp" alt="Avatar Kai" />
+                <span>Kai</span>
+              </button>
+            </div>
+            <div class="loading" id="video-loading" hidden>
+              <div class="spinner"></div>
+              <p>Generating HD video via Infinite Talk…</p>
+            </div>
+            <div class="actions">
+              <button class="btn secondary" id="avatar-back">Back</button>
+              <button class="btn primary" id="generate-video">Generate video</button>
+            </div>
+          </div>
+
+          <div class="panel" data-panel="5" hidden>
+            <h2>Your promo video is ready!</h2>
+            <div class="video-preview" id="video-preview">
+              <div class="video-avatar">
+                <img src="fb7dcbdb-6aae-4d19-887c-5525306e2f01.webp" alt="Avatar preview" />
+                <div class="subtitle" id="video-subtitle"></div>
+              </div>
+              <audio controls id="video-audio" hidden></audio>
+            </div>
+            <div class="actions">
+              <button class="btn secondary" id="preview-back">Back to avatars</button>
+              <button class="btn secondary" id="download-video">Download</button>
+              <button class="btn primary" id="share-video">Share</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="history" class="view" hidden>
+          <div class="history">
+            <h2>Generation history</h2>
+            <ul id="history-list" class="history-list empty">
+              <li>No videos yet. They will appear here after generation.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="settings" class="view" hidden>
+          <div class="settings">
+            <h2>LLM customization</h2>
+            <div class="settings-card">
+              <h3>Brand guidelines (RAG)</h3>
+              <p>Upload documents to align scripts with your brand voice.</p>
+              <form id="rag-form">
+                <input type="file" id="rag-upload" accept=".pdf,.doc,.docx,.txt" multiple />
+                <button type="submit" class="btn primary">Upload &amp; index</button>
+              </form>
+              <ul id="rag-list" class="file-list empty">
+                <li>No guidelines uploaded yet.</li>
+              </ul>
+            </div>
+
+            <div class="settings-card">
+              <h3>Fine-tuning dataset</h3>
+              <p>Provide sample scripts to fine-tune your AI assistant.</p>
+              <form id="fine-tune-form">
+                <input type="file" id="fine-tune-upload" accept=".jsonl,.csv" />
+                <button type="submit" class="btn secondary">Submit dataset</button>
+              </form>
+              <div id="fine-tune-status" class="status-pill muted">No dataset submitted</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
