@@ -10,13 +10,17 @@ Aplicação web de página única para o fluxo PPVG descrito no PRD.
 ## Executando localmente (sem npm)
 
 1. Abra um terminal na raiz do projeto: `cd /workspace/am_agent_infinity_talk` (ajuste o caminho conforme necessário).
-2. Suba um servidor estático usando Python 3:
+2. Opção rápida usando o helper incluso:
+   ```bash
+   python serve.py --port 8000
+   ```
+   > Ajuste a porta conforme necessário ou defina a variável de ambiente `PPVG_PREVIEW_PORT`.
+3. Alternativamente, execute o servidor padrão do Python:
    ```bash
    python3 -m http.server 8000
    ```
-   > Você pode trocar `8000` por outra porta se preferir.
-3. Acesse [http://localhost:8000](http://localhost:8000) no navegador para visualizar o app.
-4. Sempre que salvar alterações em `index.html`, `styles.css` ou `app.js`, atualize o navegador para refletir as mudanças.
+4. Acesse [http://localhost:8000](http://localhost:8000) no navegador para visualizar o app.
+5. Sempre que salvar alterações em `index.html`, `styles.css` ou `app.js`, atualize o navegador para refletir as mudanças.
 
 Alternativas:
 - Use a extensão **Live Server** do VS Code (botão "Go Live").
