@@ -1,0 +1,225 @@
+Product Requirements Document (PRD)
+1. Document Information
+
+Product Name: Product Promo Video Generator (PPVG App)
+Version: 1.0
+Date: September 28, 2025
+Author: Grok 4 (xAI Assistant)
+Purpose: This PRD defines the requirements for a mobile/web app that enables users to generate promotional videos for products using AI-driven script generation and avatar-based video synthesis. The app integrates with an LLM for script creation, supports RAG/fine-tuning for customization, and adheres to a minimalist design with a specified color palette.
+Intended Use: This PRD is designed to be used as input for the CODEX ChatGPT-5 model to generate code, prototypes, or further development artifacts.
+
+2. Product Overview
+2.1 Problem Statement
+Businesses and marketers often need quick, engaging promotional videos for products but lack the resources for professional scriptwriting, voice acting, or video production. Existing tools are fragmented, requiring multiple platforms for script generation, approval, and video creation. This app solves this by providing an end-to-end solution: input product details, AI-generated script, user approval, and automated video generation with a customizable avatar using lip-sync technology.
+2.2 Product Description
+The PPVG App is a user-friendly platform where users input product information, an integrated LLM generates a concise script (up to 1 minute), the user reviews and approves it, and the app produces a video featuring a pre-established avatar speaking the script via Infinite Talk lip-sync model. The app supports LLM customization through RAG (Retrieval-Augmented Generation) or fine-tuning to align scripts with company-specific guidelines and tone.
+2.3 Key Objectives
+
+Enable rapid creation of product promo videos.
+Ensure scripts are tailored to company branding via LLM enhancements.
+Provide an intuitive, minimalist interface for seamless user experience.
+Integrate with external APIs/services for LLM and video generation.
+
+2.4 Scope
+
+In Scope:
+
+User authentication and profile management.
+Product input form.
+LLM-based script generation with RAG/fine-tuning options.
+Script approval workflow.
+Video generation using Infinite Talk avatar lip-sync.
+Video preview, download, and sharing.
+Basic analytics on generated content.
+
+
+Out of Scope:
+
+Advanced video editing (e.g., custom backgrounds, effects).
+Multi-language support beyond English (initial release).
+Payment integration for premium features.
+Custom avatar creation (use pre-established avatars only).
+
+
+
+3. Target Audience and User Personas
+3.1 Target Audience
+
+Small to medium-sized businesses (SMBs) in e-commerce, marketing, and sales.
+Content creators, social media managers, and product marketers.
+Users with basic technical skills, seeking quick AI-assisted tools.
+
+3.2 User Personas
+
+Persona 1: Marketing Manager (Primary User)
+Name: Alex Johnson, 35, Marketing Lead at a tech startup.
+Goals: Quickly generate promo videos for new products to post on social media.
+Pain Points: Time-consuming scriptwriting; inconsistent branding in content.
+Tech Savvy: Moderate; uses tools like Canva and ChatGPT.
+Persona 2: E-commerce Owner
+Name: Sarah Lee, 28, Owner of an online store.
+Goals: Create engaging product videos for listings without hiring freelancers.
+Pain Points: Lack of video production skills; need for brand-aligned messaging.
+Tech Savvy: Basic; prefers simple, mobile-first apps.
+
+4. Features and Functional Requirements
+4.1 Core Features
+
+User Authentication
+
+Support email/password, Google, and Apple sign-in.
+Profile setup with company details (e.g., guidelines for LLM customization).
+
+
+Product Input
+
+Form fields: Product name, description, key features, target audience, desired tone.
+Optional: Upload images or additional docs for context.
+
+
+Script Generation
+
+Integrate with an LLM (e.g., via API like OpenAI or similar).
+Generate script ≤1 minute (approx. 150-200 words).
+Use RAG to incorporate user-uploaded company guidelines/documents.
+Allow fine-tuning option: Users can upload datasets for model adjustment (via backend service).
+Output: Script text with estimated duration.
+
+
+Script Approval
+
+Display generated script for review.
+Edit mode: Allow minor manual edits.
+Approve/Reject: On approval, proceed to video generation; on reject, regenerate with feedback.
+
+
+Video Generation
+
+Use pre-established avatar (e.g., selectable from 3-5 options).
+Integrate Infinite Talk API for lip-sync and speech synthesis.
+Generate MP4 video with avatar speaking the script.
+Duration: Match script (up to 1 min).
+
+
+Video Management
+
+Preview generated video.
+Download/share options (e.g., direct to social media).
+History: View past videos and scripts.
+
+
+LLM Customization
+
+RAG System: Upload documents (e.g., brand guidelines) to augment LLM prompts.
+Fine-Tuning: Interface to submit training data (e.g., sample scripts) for model updates (handled via backend).
+
+
+
+4.2 Non-Functional Requirements
+
+Performance: Script generation <10 seconds; video generation <30 seconds.
+Security: Encrypt user data; API keys for integrations stored securely.
+Scalability: Handle up to 1,000 active users; cloud-based backend.
+Accessibility: WCAG 2.1 compliant; support screen readers.
+Platforms: Mobile (iOS/Android) and Web (responsive design).
+
+5. User Flows
+5.1 Main User Flow: Generate Promo Video
+
+User logs in.
+Navigates to "Create New Video" screen.
+Inputs product details via form.
+Submits; app generates script using LLM (with RAG if customized).
+Reviews script: Edit, approve, or regenerate.
+On approval, selects avatar and generates video.
+Previews video; downloads or shares.
+
+5.2 Customization Flow
+
+From profile/settings: Upload brand guidelines document.
+Choose RAG mode: App indexes document for future generations.
+Or fine-tune: Upload dataset; trigger backend process (async notification on completion).
+
+6. Technical Requirements
+6.1 Integrations
+
+LLM API: Compatible with models like GPT series; support RAG via vector databases (e.g., Pinecone).
+Fine-Tuning: Use services like Hugging Face or OpenAI fine-tuning APIs.
+Video Synthesis: Infinite Talk API for lip-sync; TTS integration (e.g., ElevenLabs).
+Backend: Node.js/Python with cloud hosting (e.g., AWS/GCP).
+Frontend: React Native for cross-platform mobile/web.
+
+6.2 Data Storage
+
+User profiles, scripts, videos: Stored in secure database (e.g., MongoDB).
+RAG Data: Vector embeddings for quick retrieval.
+
+6.3 Analytics and Monitoring
+
+Track usage metrics (e.g., videos generated).
+Error logging for integrations.
+
+7. Design Guidelines
+7.1 Overall Design Principles
+
+Style: Minimalist, intuitive, user-friendly.
+Color Palette:
+
+Primary: Blue (#007BFF) for buttons, headers.
+Secondary: White (#FFFFFF) for backgrounds, text.
+Accents: Yellow (#FFD700) for highlights, calls-to-action (e.g., approve button).
+
+
+Typography: Sans-serif fonts (e.g., Roboto or Inter); clean and readable.
+Layout: Simple navigation with bottom tab bar (Home, Create, History, Settings).
+UI Elements:
+
+Buttons: Rounded, with subtle shadows.
+Forms: Single-column, with real-time validation.
+Loading States: Spinner with blue/yellow accents.
+
+
+User Experience: One-tap actions where possible; guided tutorials for first-time users.
+
+7.2 Wireframe Sketches (High-Level Description)
+
+Home Screen: Dashboard with recent videos; "Create New" button (blue with yellow icon).
+Create Screen: Stepper UI (Input > Script > Approve > Generate > Preview).
+Settings Screen: Sections for LLM customization, with upload buttons.
+
+8. Assumptions and Dependencies
+8.1 Assumptions
+
+Users have internet access for API calls.
+Infinite Talk API is available and supports the required features.
+LLM provider supports RAG and fine-tuning.
+Initial avatars are pre-loaded; no user-uploaded avatars.
+
+8.2 Dependencies
+
+Third-party APIs: LLM (e.g., OpenAI), Infinite Talk, TTS.
+Development Tools: For CODEX ChatGPT-5 integration, assume API access for code generation based on this PRD.
+
+8.3 Risks and Mitigations
+
+Risk: API downtime – Mitigation: Fallback to cached models.
+Risk: High generation costs – Mitigation: Usage quotas per user.
+Risk: Script quality variance – Mitigation: User feedback loop for regeneration.
+
+9. Success Metrics
+
+User Adoption: 500 active users in first 3 months.
+Engagement: 80% completion rate for video generation flows.
+Satisfaction: NPS >7 via in-app surveys.
+Technical: <5% error rate in integrations.
+
+10. Appendix
+
+Glossary:
+
+LLM: Large Language Model.
+RAG: Retrieval-Augmented Generation.
+Lip-Sync: Synchronization of avatar mouth movements with speech.
+
+
+References: Infinite Talk documentation; LLM API specs.
