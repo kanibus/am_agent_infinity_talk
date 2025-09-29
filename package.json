@@ -1,0 +1,16 @@
+{
+  "name": "am-agent-infinity-talk",
+  "version": "1.0.0",
+  "description": "Single-page app para o fluxo PPVG conforme PRD",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "ppvg",
+    "promo",
+    "webapp"
+  ],
+  "author": "",
+  "license": "MIT"
+}
